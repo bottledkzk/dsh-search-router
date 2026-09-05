@@ -17,7 +17,7 @@ Location: **Settings → Plugins → Plugin configuration → Search Router**.
 
 ## Configuration storage and priority
 
-The authoritative source is the DSH settings namespace `search-router`, persisted in:
+The primary source of truth is the DSH settings namespace `search-router`, persisted in:
 
 ```yaml
 # ~/.dsh/settings.yaml
@@ -32,9 +32,9 @@ search-router:
   deepseekApiKeyMask: "••••••••"
 ```
 
-When the settings service is unavailable, the plugin falls back to `$DSH_HOME/search-router.json`.
+If the settings service is unavailable, the plugin falls back to `$DSH_HOME/search-router.json`.
 
-Key resolution priority:
+Key resolution order:
 1. Key entered in the panel (explicit override)
 2. `process.env.DEEPSEEK_API_KEY` / `ANYSEARCH_API_KEY`
 3. `~/.dsh/.env`
@@ -53,21 +53,21 @@ Key resolution priority:
 
 ## Notes
 
-1. After client UI updates, hard-refresh the browser (`Ctrl+F5`).
-2. Do not let multiple search plugins fight over `web.searchProvider`. If you install other search plugins too, pin this router in the profile user config:
+1. Hard-refresh the browser after client UI updates (`Ctrl+F5`).
+2. Avoid conflicts with other search plugins over `web.searchProvider`. If you also install other search plugins, pin this router in the profile user config:
    ```yaml
    - id: web
      config:
        searchProvider: router
        fetchProvider: http
    ```
-3. Uninstall:
+3. To uninstall:
    - Remove `dsh-search-router` from the profile `package.json` dependencies and bundles.
    - Run `pnpm install` in the profile directory.
    - Restart dsh.
    - If `web.searchProvider` still points to `router`, set it back to `deepseek-official` or remove the override.
-4. Keys saved before the mask feature may only show `••••••••`; click Edit and save again to generate the partial mask.
-5. The DeepSeek API Key field expects the DeepSeek official `sk-...` key — the same key used for model configuration.
-6. AnySearch works anonymously without a key; registered users should enter `as_sk_...` for higher quota and more stable results.
-7. Default fallback: `anysearch -> deepseek-official`. If AnySearch also fails, DeepSeek official is the final backend; results include a `Note: ...` explaining the actual backend used.
-8. The plugin does not depend on dsh-web-ui, but the settings card requires the official `settings.plugin.item` slot, so it lives in the official Settings → Plugins → Plugin configuration page.
+4. Keys saved before the mask feature may show only `••••••••`; click Edit and save again to generate the partial mask.
+5. The DeepSeek API Key field expects the DeepSeek official `sk-...` key — the same key used for model configuration, not an Anthropic key.
+6. AnySearch works anonymously without a key; registered users can enter `as_sk_...` for a higher quota and more stable results.
+7. Default fallback chain: `anysearch -> deepseek-official`. If AnySearch also fails, DeepSeek official is the final backend; results include a `Note: ...` explaining which backend was actually used.
+8. The plugin does not depend on dsh-web-ui, but the settings card requires the official `settings.plugin.item` slot and therefore appears in the official Settings → Plugins → Plugin configuration page.

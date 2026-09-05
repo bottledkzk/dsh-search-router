@@ -1,5 +1,7 @@
 # dsh-search-router
 
+**中文** | [English](README_EN.md)
+
 DeepSeek Harness 搜索路由插件：将多个搜索后端统一包装为一个 `ctx.web` search provider（`router`），支持**即时切换当前搜索后端**、**查看当前后端与回退链**、**后端失败自动回退到 DeepSeek 官方搜索**，并提供中文设置面板。
 
 ## 特性
