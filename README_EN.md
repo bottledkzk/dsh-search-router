@@ -52,7 +52,7 @@ dsh plugin --profile web add /path/to/dsh-search-router
 - Default location: the `search-router:` section in `~/.dsh/settings.yaml`
 - Fallback when the settings service is unavailable: `~/.dsh/search-router.json`
 
-See [docs/SETTINGS.md](docs/SETTINGS.md) for field details, key display rules, and notes.
+See [docs/SETTINGS_EN.md](docs/SETTINGS_EN.md) for field details, key display rules, and notes.
 
 ## Compatibility
 
