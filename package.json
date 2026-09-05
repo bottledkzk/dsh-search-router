@@ -1,0 +1,78 @@
+{
+  "name": "dsh-search-router",
+  "version": "0.1.0",
+  "description": "Route DeepSeek Harness web_search across DeepSeek official / AnySearch / free engines with live switching, status, and automatic fallback.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "license": "MIT",
+  "files": [
+    "lib/index.js",
+    "lib/index.d.ts",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "README_EN.md",
+    "docs/SETTINGS.md",
+    "docs/INSTALL.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "web-search",
+    "search-router",
+    "anysearch",
+    "deepseek"
+  ],
+  "author": "bottledkzk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bottledkzk/dsh-search-router.git"
+  },
+  "homepage": "https://github.com/bottledkzk/dsh-search-router#readme",
+  "bugs": {
+    "url": "https://github.com/bottledkzk/dsh-search-router/issues"
+  },
+  "dependencies": {
+    "@deepseek-ai/schemastery": ">=3.18.1-rc.1 <4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsdown": "^0.22.2",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "build:host": "bash scripts/build.sh",
+    "build:client": "tsdown --config tsdown.config.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime"
+      ],
+      "platform": "web"
+    },
+    "engines": {
+      "dsh": ">=0.1.2-rc.1 <0.2"
+    }
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}

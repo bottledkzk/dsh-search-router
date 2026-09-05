@@ -1,0 +1,24 @@
+# dsh-search-router — local multi-provider search router.
+# Registers a single wrapper provider `router` into ctx.web and routes
+# web_search across deepseek-official / anysearch / free engines with live
+# switching and automatic fallback to deepseek-official.
+#
+# The plugin reads its own runtime config from $DSH_HOME/search-router.json
+# (created on first run); the `config` below only provides the initial defaults
+# when that file does not exist yet.
+- insert:
+    - id: web-search-router
+      name: 'dsh-search-router'
+      config:
+        provider: bing
+        fallback:
+          - anysearch
+          - deepseek-official
+
+# Route the web seam through this plugin while keeping the official HTTP fetch
+# provider untouched (fetchProvider is part of the same config block, so it must
+# be listed here to avoid clearing it under DSH 0.1.2 patch semantics).
+- id: web
+  config:
+    searchProvider: router
+    fetchProvider: http
